@@ -4,16 +4,17 @@ ENV ALPINE_VERSION=3.5
 
 MAINTAINER rbravo@datiobd.com
 
-ENV PVERSION 2.7
+#set environment variables
 ENV VERSION 2.7
-#set python version
 ENV PYTHON_VERSION python$VERSION
 ENV PYTHON_DEV_VERSION python$VERSION-dev
 
 # copy the contents of the `app/` folder into the container at build time
 ADD app/ /app/
+
 # expose port
 #EXPOSE $PORTS
+
 #run commands:
 RUN apk add --update \
    # install pyton and pip
