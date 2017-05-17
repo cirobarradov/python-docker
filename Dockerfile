@@ -29,7 +29,7 @@ RUN virtualenv -p /usr/bin/$PYTHON_VERSION /venv/
 RUN /venv/bin/pip install -r /app/requirements.txt
 
 # expose port
-EXPOSE 5000
+#EXPOSE 5000
 
 # run our app inside the container
 CMD cd /app/ && /venv/bin/python app.py
