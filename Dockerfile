@@ -1,10 +1,11 @@
 FROM ubuntu:trusty
 
-MAINTAINER datiobd
+MAINTAINER rbravo@datiobd.com
 
+ENV VERSION 2.7
 #set python version
-ENV PYTHON_VERSION python2.7
-ENV PYTHON_DEV_VERSION python2.7-dev
+ENV PYTHON_VERSION python$VERSION
+ENV PYTHON_DEV_VERSION python$VERSION-dev
 
 #install python
 RUN set -x \
@@ -29,7 +30,7 @@ RUN virtualenv -p /usr/bin/$PYTHON_VERSION /venv/
 RUN /venv/bin/pip install -r /app/requirements.txt
 
 # expose port
-#EXPOSE 5000
+#EXPOSE $PORTS
 
 # run our app inside the container
 CMD cd /app/ && /venv/bin/python app.py
