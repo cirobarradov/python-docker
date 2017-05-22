@@ -1,4 +1,5 @@
 import time
+import sys
 from random import shuffle
  
 nitems=10
@@ -16,4 +17,4 @@ while not inorder(numbs):
     shuffle(numbs)
 end = time.clock()
 print(numbs, end-start, "seconds")
-
+print(sys.version)
