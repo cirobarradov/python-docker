@@ -6,8 +6,6 @@ MAINTAINER rbravo@datiobd.com
 
 #set environment variables
 #ENV VERSION 2.7
-#ENV PYTHON_VERSION python$VERSION
-#ENV PYTHON_DEV_VERSION python$VERSION-dev
 
 # copy the contents of the `app/` folder into the container at build time
 ADD app/ /app/
@@ -29,14 +27,3 @@ RUN apk add --update \
   # clean cache
   && rm -rf /var/cache/apk/* \
   && rm -r /root/.cache \
-  # create a virtualenv we can later use
-  #&& mkdir -p /venv/ \
-  # install python version on virtual environment
-#  && virtualenv -p /usr/bin/$PYTHON_VERSION venv \
-  # activate virtual environment
-#  &&  source venv/bin/activate \
-#  && chmod +x venv/bin \
-  # install python dependencies into venv
-#  &&  pip install -r /app/requirements.txt --upgrade \
-  # run our app inside the container
-#  && $PYTHON_VERSION /app/app.py
