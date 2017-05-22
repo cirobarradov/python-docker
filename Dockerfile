@@ -5,9 +5,9 @@ ENV ALPINE_VERSION=3.5
 MAINTAINER rbravo@datiobd.com
 
 #set environment variables
-ENV VERSION 3.5
-ENV PYTHON_VERSION python$VERSION
-ENV PYTHON_DEV_VERSION python$VERSION-dev
+#ENV VERSION 2.7
+#ENV PYTHON_VERSION python$VERSION
+#ENV PYTHON_DEV_VERSION python$VERSION-dev
 
 # copy the contents of the `app/` folder into the container at build time
 ADD app/ /app/
@@ -22,20 +22,21 @@ RUN apk add --update \
   python3 \
   python-dev \
   python3-dev \
-    py-pip \
-    build-base \
+  py-pip \
+  build-base \
   # install virtual environment
   && pip install virtualenv \
   # clean cache
   && rm -rf /var/cache/apk/* \
   && rm -r /root/.cache \
   # create a virtualenv we can later use
-  && mkdir -p /venv/ \
+  #&& mkdir -p /venv/ \
   # install python version on virtual environment
-  && virtualenv -p /usr/bin/$PYTHON_VERSION /venv/ \
+#  && virtualenv -p /usr/bin/$PYTHON_VERSION venv \
   # activate virtual environment
-  && source /venv/bin/activate \
+#  &&  source venv/bin/activate \
+#  && chmod +x venv/bin \
   # install python dependencies into venv
-  &&  pip install -r /app/requirements.txt \
+#  &&  pip install -r /app/requirements.txt --upgrade \
   # run our app inside the container
-  && $PYTHON_VERSION /app/app.py
+#  && $PYTHON_VERSION /app/app.py
