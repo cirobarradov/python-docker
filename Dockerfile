@@ -9,7 +9,7 @@ ADD app/ /app/
 #EXPOSE $PORTS
 
 #run commands:
-RUN apt-get update && apt-get install -y python-dev python-pip libzookeeper-mt-dev \
+RUN apt-get update && apt-get install -y python3 python-dev python-pip libzookeeper-mt-dev \
     && pip install virtualenv \
     # clean cache
     && apt-get clean -y && \
