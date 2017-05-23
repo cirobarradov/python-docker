@@ -1,20 +1,38 @@
-import time
+#!/usr/bin/env python2.7
+from __future__ import print_function
+
 import sys
-from random import shuffle
- 
-nitems=10
- 
-def inorder(numbs):
-    for i in range(len(numbs)-1):
-        if numbs[i] > numbs[i+1]: return False
-    return True
- 
-numbs=[i for i in range(nitems)]
-shuffle(numbs)
- 
-start=time.clock()
-while not inorder(numbs):
-    shuffle(numbs)
-end = time.clock()
-print(numbs, end-start, "seconds")
-print(sys.version)
+import time
+from threading import Thread
+
+from pymesos import MesosExecutorDriver, Executor, decode_data
+from addict import Dict
+
+
+class MinimalExecutor(Executor):
+    def launchTask(self, driver, task):
+        def run_task(task):
+            update = Dict()
+            update.task_id.value = task.task_id.value
+            update.state = 'TASK_RUNNING'
+            update.timestamp = time.time()
+            driver.sendStatusUpdate(update)
+
+            print(decode_data(task.data), file=sys.stderr)
+            time.sleep(30)
+
+            update = Dict()
+            update.task_id.value = task.task_id.value
+            update.state = 'TASK_FINISHED'
+            update.timestamp = time.time()
+            driver.sendStatusUpdate(update)
+
+        thread = Thread(target=run_task, args=(task,))
+        thread.start()
+
+
+if __name__ == '__main__':
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+    driver = MesosExecutorDriver(MinimalExecutor(), use_addict=True)
+    driver.run()
