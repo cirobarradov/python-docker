@@ -9,12 +9,14 @@ ADD app/ /app/
 #EXPOSE $PORTS
 
 #run commands:
-RUN apt-get update && apt-get install -y python3 python-dev python-pip libzookeeper-mt-dev \
+RUN apt-get update && apt-get install -y python3 python-dev python3-dev python-pip libzookeeper-mt-dev \
     && pip install virtualenv \
+    && chmod +x /app/init.sh  \
     # clean cache
     && apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
+
     rm -rf /usr/share/locale/* && \
     rm -rf /var/cache/debconf/*-old && \
     rm -rf /var/lib/apt/lists/* && \
