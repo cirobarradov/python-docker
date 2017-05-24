@@ -7,4 +7,4 @@ source venv/bin/activate
 # install python dependencies into venv
 pip install -r /app/requirements.txt --upgrade
 # run our app inside the container
-venv/bin/python$VERSION /app/app.py
+venv/bin/python$VERSION /app/app.py 172.16.48.181
