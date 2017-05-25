@@ -64,7 +64,7 @@ def main(master):
     executor = Dict()
     executor.executor_id.value = 'MinimalExecutor'
     executor.name = executor.executor_id.value
-    executor.command.value = 'python executor.py'
+    executor.command.value = '/venv/bin/python2.7 executor.py'
     executor.resources = [
         dict(name='mem', type='SCALAR', scalar={'value': EXECUTOR_MEM}),
         dict(name='cpus', type='SCALAR', scalar={'value': EXECUTOR_CPUS}),
