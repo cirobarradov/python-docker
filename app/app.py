@@ -64,14 +64,14 @@ def main(master):
     executor = Dict()
     executor.executor_id.value = 'MinimalExecutor'
     executor.name = executor.executor_id.value
-    executor.command.value = '%s %s' % (
-        sys.executable,
-        abspath(join(dirname(__file__), 'executor.py'))
-    )
+    executor.command.value = 'python executor.py'
     executor.resources = [
         dict(name='mem', type='SCALAR', scalar={'value': EXECUTOR_MEM}),
         dict(name='cpus', type='SCALAR', scalar={'value': EXECUTOR_CPUS}),
     ]
+    executor.container.type = 'MESOS'
+    executor.container.mesos.image.type = 'DOCKER'
+    executor.container.mesos.docker.image = 'cirobarradov/python-docker'
 
     framework = Dict()
     framework.user = getpass.getuser()
